@@ -7,10 +7,7 @@ import org.hibernate.criterion.Criterion;
 
 /**
  *
- * <Comments>
- *
  * @filename	GenericPMBDAO.java
- * @date	Apr 30, 2014
  * @author Deloitte
  *
  */

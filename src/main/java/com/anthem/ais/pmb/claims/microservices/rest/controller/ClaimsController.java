@@ -9,12 +9,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.anthem.ais.pmb.claims.microservices.common.generated.ClaimsSummary;
+import com.anthem.ais.pmb.claims.microservices.response.ClaimHistoryResponse;
 import com.anthem.ais.pmb.claims.microservices.response.ClaimSummaryResponse;
 import com.anthem.ais.pmb.claims.microservices.response.VirtualSummaryResponse;
 import com.anthem.ais.pmb.claims.microservices.rest.model.ClaimsModel;
 import com.anthem.ais.pmb.claims.microservices.rest.model.MembrIndcModel;
+import com.anthem.ais.pmb.claims.microservices.rest.model.StatusModel;
+import com.anthem.ais.pmb.claims.microservices.rest.service.ClaimHistoryService;
 import com.anthem.ais.pmb.claims.microservices.rest.service.ClaimSummaryService;
 import com.anthem.ais.pmb.claims.microservices.rest.service.OffilinePaymentService;
+import com.anthem.ais.pmb.claims.microservices.util.PMBConstants;
+import com.anthem.ais.pmb.claims.microservices.util.PMBPropertiesUtil;
 
 @Controller
 public class ClaimsController {
@@ -24,28 +29,52 @@ public class ClaimsController {
 	private OffilinePaymentService offilinePaymentService;
 	@Autowired
 	private ClaimSummaryService claimSummaryService;
+	@Autowired
+	private ClaimHistoryService claimHistoryService;
 
 	@RequestMapping(value = "/summary", method = {RequestMethod.POST})
     public @ResponseBody ClaimSummaryResponse getIt(@RequestBody ClaimsModel cm) {
-		String uri = new String("http://mom9n90067.wellpoint.com:9080/claimSummary/members/"+cm.getUserToken()+"/claims");
+		
+		//Lookup EdgeService /members/{token}/claims
+		String edgeHost = PMBPropertiesUtil.getProperty(PMBConstants.EDGE_SERVICE_HOST_URL);
+		String uri = new String(edgeHost+"/members/"+cm.getUserToken()+"/claims");
 		ClaimsSummary cs = restTemplate.getForObject(uri, ClaimsSummary.class);
-		String vuri = new String("http://30.135.10.202:57000/AIS/pmb/claims/virtual");
+		
+		//Lookup Virtual Service for remaining fields
+		String virtualHost = PMBPropertiesUtil.getProperty(PMBConstants.VIRTUAL_HOST_URL);
+		String vuri = new String(virtualHost+"/pmb/claims/virtual");
 		VirtualSummaryResponse vs = restTemplate.getForObject(vuri, VirtualSummaryResponse.class);
+		//Create response
 		ClaimSummaryResponse csr = claimSummaryService.createClaimSummary(cs, vs);
+		
+		return csr;
+    }
+	
+	@RequestMapping(value = "/history", method = {RequestMethod.POST})
+    public @ResponseBody ClaimHistoryResponse getHistory(@RequestBody ClaimsModel cm) {
+		
+		//Create response
+		ClaimHistoryResponse csr = claimHistoryService.createClaimHistory(cm);
+		
 		return csr;
     }
 	
 	@RequestMapping(value = "/vclaims", method = {RequestMethod.GET})
     public @ResponseBody String getClaimsVirtual() {
-		String uri = new String("http://30.135.10.202:57000/AIS/pmb/claims/virtual");
+		String virtualHost = PMBPropertiesUtil.getProperty(PMBConstants.VIRTUAL_HOST_URL);
+		String uri = new String(virtualHost+"/pmb/claims/virtual");
 		String result = restTemplate.getForObject(uri, String.class);
 		return result;
     }
 	
+	//Member Indicate Endpoint
 	@RequestMapping(value = "/indicate", method = {RequestMethod.POST})
-    public @ResponseBody String setIndicate(@RequestBody MembrIndcModel model) {
+    public @ResponseBody StatusModel setIndicate(@RequestBody MembrIndcModel model) {
 		String result = offilinePaymentService.saveMemberIndicated(model);
-		return result;
+		StatusModel st = new StatusModel();
+		st.setStatusCode(PMBConstants.SUCCESS_CODE);
+		st.setStatusMessage((result.equals(PMBConstants.RESPONSE_SUCCESS))?PMBConstants.RESPONSE_SUCCESS:PMBConstants.RESPONSE_ERROR);
+		return st;
     }
 	
 	

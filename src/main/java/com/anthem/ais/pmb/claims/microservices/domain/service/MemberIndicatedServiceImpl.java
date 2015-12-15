@@ -1,5 +1,7 @@
 package com.anthem.ais.pmb.claims.microservices.domain.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +35,12 @@ public class MemberIndicatedServiceImpl extends
 	@Transactional
 	public MemberIndicated saveIndicated(MemberIndicated mi) {
 		return getMemberIndicatedDAO().saveOrUpdate(mi);
+	}
+	
+	@Override
+	@Transactional
+	public List<MemberIndicated> findByHcId(String hcid){
+		return getMemberIndicatedDAO().findByHcId(hcid);
 	}
 	
 }

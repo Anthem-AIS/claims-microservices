@@ -20,12 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.anthem.ais.pmb.claims.microservices.util.PMBLogger;
 
 /**
- * @com.wellpoint.cii.domain.generic.dao
- * 
- *                                       <Comments>
- * 
- * @filename GenericCIIDAOImpl.java
- * @date Apr 30, 2014
+ * @filename GenericPMBDAOImpl.java
  * @author Deloitte
  * 
  */

@@ -8,19 +8,15 @@ public class MembrIndcModel implements Serializable{
 
 	private static final long serialVersionUID = -3858379196463550353L;
 	
-	@JsonProperty("ClaimId")
+	@JsonProperty("claimId")
 	private String claimId;
-	@JsonProperty("HcId")
+	@JsonProperty("hcid")
 	private String hcId;
-	@JsonProperty("PaymentTransactionId")
-	private String paymentTransactionId;
-	@JsonProperty("SequenceNumber")
+	@JsonProperty("sequenceNumber")
 	private String sequenceNumber;
-	@JsonProperty("AmountPaid")
+	@JsonProperty("amountPaid")
 	private String amountPaid;
-	@JsonProperty("TransactionDateTime")
-	private String transactionDateTime;
-	@JsonProperty("Notes")
+	@JsonProperty("notes")
 	private String notes;
 	
 	public String getNotes() {
@@ -41,12 +37,7 @@ public class MembrIndcModel implements Serializable{
 	public void setHcId(String hcId) {
 		this.hcId = hcId;
 	}
-	public String getPaymentTransactionId() {
-		return paymentTransactionId;
-	}
-	public void setPaymentTransactionId(String paymentTransactionId) {
-		this.paymentTransactionId = paymentTransactionId;
-	}
+	
 	public String getSequenceNumber() {
 		return sequenceNumber;
 	}
@@ -58,12 +49,6 @@ public class MembrIndcModel implements Serializable{
 	}
 	public void setAmountPaid(String amountPaid) {
 		this.amountPaid = amountPaid;
-	}
-	public String getTransactionDateTime() {
-		return transactionDateTime;
-	}
-	public void setTransactionDateTime(String transactionDateTime) {
-		this.transactionDateTime = transactionDateTime;
 	}
 	
 	

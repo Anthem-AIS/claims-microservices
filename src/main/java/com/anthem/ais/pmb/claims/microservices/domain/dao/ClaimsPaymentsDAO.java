@@ -10,5 +10,7 @@ import com.anthem.ais.pmb.claims.microservices.generic.dao.GenericPMBDAO;
 public interface ClaimsPaymentsDAO extends GenericPMBDAO<ClaimsPayment,ClaimsPaymentPK>{
 	
 	public List<HcidSequenceNumber2Uuid> getHcidByUuid(String uuid);
+
+	public List<ClaimsPayment> findByHcId(String hcid);
 	
 }

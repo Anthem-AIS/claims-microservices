@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.anthem.ais.pmb.claims.microservices.rest.model.HcIdUuIdModel;
+import com.anthem.ais.pmb.claims.microservices.rest.model.PayNowRequest;
 import com.anthem.ais.pmb.claims.microservices.rest.model.PostBackRequest;
 import com.anthem.ais.pmb.claims.microservices.rest.service.InstaMedPostBackService;
 import com.anthem.ais.pmb.claims.microservices.util.PMBConstants;
@@ -33,6 +34,14 @@ public class PmbInstaMedController {
 		System.out.println(hum.toString());
 		
 		String status = instaMedPostBackService.saveHcIdUuIdPair(hum);
+		
+        return status;
+    }
+	
+	@RequestMapping(value = "/paynow", method = {RequestMethod.POST})
+    public @ResponseBody String payNow(@RequestBody PayNowRequest pnr) {
+		
+		String status = instaMedPostBackService.payNow(pnr);
 		
         return status;
     }

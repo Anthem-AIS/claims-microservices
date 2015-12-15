@@ -30,4 +30,19 @@ public class ClaimsPaymentsDAOImpl extends
 		}
 		return ids;
 	}
+	
+	public List<ClaimsPayment> findByHcId(String hcid){
+		
+		Session session = getSession();
+		List<ClaimsPayment> ids = new ArrayList<>();
+		try {
+			Query query = session.createQuery("From ClaimsPayment cp where cp.hcid=:hcid");
+			query.setString("hcid", hcid);
+			ids = query.list();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		return ids;
+		
+	}
 }

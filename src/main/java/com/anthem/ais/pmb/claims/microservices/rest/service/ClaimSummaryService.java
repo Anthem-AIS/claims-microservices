@@ -21,11 +21,11 @@ public class ClaimSummaryService {
 		ClaimSummaryResponse csr = new ClaimSummaryResponse();
 		
 		List<Claim> claimList = cs.getClaims();
-		List<ClaimSummary> csList = new ArrayList<ClaimSummary>();
+		List<ClaimSummary> csList = new ArrayList<>();
 		for (Claim claim : claimList) {
 			ClaimSummary item = new ClaimSummary();
 			item.setClaimId(claim.getClmId());
-			item.setProviderName(claim.getServicingProvider().getProfessionalNm());
+			item.setProviderName(claim.getServicingProvider().getOrganizationNm());
 			item.setDateOfService(claim.getClmStartDt());
 			item.setClaimAmount(claim.getAmount().getTotalChargeAmt().toString());
 			FacilityDetails fd = new FacilityDetails();

@@ -13,4 +13,5 @@ public interface ClaimsPaymentService extends GenericEntityService<ClaimsPayment
 	public ClaimsPaymentsDAO getEntityDao();
 	public ClaimsPayment savePostBackData(ClaimsPayment cp);	
 	public List<HcidSequenceNumber2Uuid> getHcidByUuid(String uuid);
+	public List<ClaimsPayment> findByHcId(String hcid);
 }

@@ -12,6 +12,7 @@ import com.anthem.ais.pmb.claims.microservices.domain.entity.HcidSequenceNumber2
 import com.anthem.ais.pmb.claims.microservices.domain.service.ClaimsPaymentService;
 import com.anthem.ais.pmb.claims.microservices.domain.service.HcidSequenceNumber2UuidService;
 import com.anthem.ais.pmb.claims.microservices.rest.model.HcIdUuIdModel;
+import com.anthem.ais.pmb.claims.microservices.rest.model.PayNowRequest;
 import com.anthem.ais.pmb.claims.microservices.rest.model.PostBackRequest;
 import com.anthem.ais.pmb.claims.microservices.util.PMBDateUtil;
 import com.anthem.ais.pmb.claims.microservices.util.PMBConstants;
@@ -24,6 +25,14 @@ public class InstaMedPostBackService {
 	
 	@Autowired
 	private HcidSequenceNumber2UuidService hcidSequenceNumber2UuidService;
+	
+	@Transactional
+	public String payNow(PayNowRequest pnr){
+		
+		String status = PMBConstants.EMPTY_SPACE;
+		
+		return status;
+	}
 	
 	@Transactional
 	public String saveHcIdUuIdPair(HcIdUuIdModel hu){

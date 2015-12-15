@@ -10,4 +10,9 @@ public interface PMBConstants {
 		public static final String MMMM_DD_YYYY = "MMMM dd,yyyy";
 		public static final String MM_DD_YYYY = "MM/dd/yyyy";
 		public static final String YYYY_MM_DD = "yyyy-MM-dd";
+	//HOST URL
+		public static final String EDGE_SERVICE_HOST_URL = "pmb.claims.edgeservice.url";
+		public static final String VIRTUAL_HOST_URL = "pmb.claims.virtual.url";
+		public static final String SUCCESS_CODE = "PMB_200";
+	
 }

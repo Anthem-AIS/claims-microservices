@@ -9,6 +9,7 @@ import com.anthem.ais.pmb.claims.microservices.domain.service.MemberIndicatedSer
 import com.anthem.ais.pmb.claims.microservices.rest.model.MembrIndcModel;
 import com.anthem.ais.pmb.claims.microservices.util.PMBConstants;
 import com.anthem.ais.pmb.claims.microservices.util.PMBDateUtil;
+import com.anthem.ais.pmb.claims.microservices.util.RandomGUID;
 
 @Component
 public class OffilinePaymentService {
@@ -18,11 +19,12 @@ public class OffilinePaymentService {
 
 	@Transactional
 	public String saveMemberIndicated(MembrIndcModel mim) {
+		RandomGUID transactionGUID = new RandomGUID(true);
 		String status = PMBConstants.EMPTY_SPACE;
 		MemberIndicated mi = new MemberIndicated();
 		MemberIndicatedPK pk = new MemberIndicatedPK();
 		pk.setClaimId(mim.getClaimId());
-		pk.setPaymentTransactionid(mim.getPaymentTransactionId());
+		pk.setPaymentTransactionid(transactionGUID.getRandomGUID());
 		mi.setId(pk);
 		mi.setAmountPaid((long) Float.parseFloat(mim.getAmountPaid()));
 		mi.setNotes(mim.getNotes());

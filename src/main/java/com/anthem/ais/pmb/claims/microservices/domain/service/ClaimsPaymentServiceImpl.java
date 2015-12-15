@@ -40,4 +40,9 @@ public class ClaimsPaymentServiceImpl extends
 	public List<HcidSequenceNumber2Uuid> getHcidByUuid(String uuid){
 		return claimsPaymentsDAO.getHcidByUuid(uuid);
 	}
+	@Transactional
+	public List<ClaimsPayment> findByHcId(String hcid){
+		return claimsPaymentsDAO.findByHcId(hcid);
+		
+	}
 }
