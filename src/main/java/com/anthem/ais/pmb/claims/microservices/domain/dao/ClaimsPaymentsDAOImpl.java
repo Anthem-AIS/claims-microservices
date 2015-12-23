@@ -9,28 +9,12 @@ import org.hibernate.Session;
 
 import com.anthem.ais.pmb.claims.microservices.domain.entity.ClaimsPayment;
 import com.anthem.ais.pmb.claims.microservices.domain.entity.ClaimsPaymentPK;
-import com.anthem.ais.pmb.claims.microservices.domain.entity.HcidSequenceNumber2Uuid;
 import com.anthem.ais.pmb.claims.microservices.generic.dao.GenericPMBDAOImpl;
 
 public class ClaimsPaymentsDAOImpl extends
 		GenericPMBDAOImpl<ClaimsPayment, ClaimsPaymentPK> implements
 		ClaimsPaymentsDAO {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<HcidSequenceNumber2Uuid> getHcidByUuid(String uuid) {
-		Session session = getSession();
-		List<HcidSequenceNumber2Uuid> ids = new ArrayList<HcidSequenceNumber2Uuid>();
-		try {
-			Query query = session.createQuery("From HcidSequenceNumber2Uuid hc where hc.uuid=:uuid");
-			query.setString("uuid", uuid);
-			ids = query.list();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-		}
-		return ids;
-	}
-	
 	public List<ClaimsPayment> findByHcId(String hcid){
 		
 		Session session = getSession();
@@ -38,6 +22,21 @@ public class ClaimsPaymentsDAOImpl extends
 		try {
 			Query query = session.createQuery("From ClaimsPayment cp where cp.hcid=:hcid");
 			query.setString("hcid", hcid);
+			ids = query.list();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		return ids;
+		
+	}
+	
+	public List<ClaimsPayment> findByClaimId(String claimId){
+		
+		Session session = getSession();
+		List<ClaimsPayment> ids = new ArrayList<>();
+		try {
+			Query query = session.createQuery("From ClaimsPayment cp where cp.id.claimId=:claimId");
+			query.setString("claimId", claimId);
 			ids = query.list();
 		} catch (HibernateException e) {
 			e.printStackTrace();

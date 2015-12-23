@@ -48,26 +48,43 @@ public class ClaimHistoryService {
 			String edgeHost = PMBPropertiesUtil
 					.getProperty(PMBConstants.EDGE_SERVICE_HOST_URL);
 			String uri = new String(edgeHost + "/members/" + cm.getUserToken()
-					+ "/claims"+memberIndicated.getId().getClaimId());
+					+ "/claims/"+memberIndicated.getId().getClaimId());
 			ClaimsSummary cs = restTemplate.getForObject(uri, ClaimsSummary.class);
 
 			// Lookup Virtual Service for remaining fields
 			String virtualHost = PMBPropertiesUtil
 					.getProperty(PMBConstants.VIRTUAL_HOST_URL);
-			String vuri = new String(virtualHost + "/pmb/claims/virtual");
+			String vuri = new String(virtualHost + "/pmb/claims/virtual?claimId=2015280AS1000");
 			VirtualSummaryResponse vs = restTemplate.getForObject(vuri,
 					VirtualSummaryResponse.class);
 			chList.add(createClaimHistoryReponseOff(cs,vs,memberIndicated));
 			
 		}
 		
+		//Look for online payments
+		List<ClaimsPayment> OnlineList = claimsPaymentService.findByHcId(cm.getHcid());
+		
+		for (ClaimsPayment claimsPayment : OnlineList) {
+			
+			// Lookup EdgeService /members/{token}/claims
+			String edgeHost = PMBPropertiesUtil
+					.getProperty(PMBConstants.EDGE_SERVICE_HOST_URL);
+			String uri = new String(edgeHost + "/members/" + cm.getUserToken()
+					+ "/claims/"+claimsPayment.getId().getClaimId());
+			ClaimsSummary cs = restTemplate.getForObject(uri, ClaimsSummary.class);
+
+			// Lookup Virtual Service for remaining fields
+			String virtualHost = PMBPropertiesUtil
+					.getProperty(PMBConstants.VIRTUAL_HOST_URL);
+			String vuri = new String(virtualHost + "/pmb/claims/virtual?claimId=2015280AS1000");
+			VirtualSummaryResponse vs = restTemplate.getForObject(vuri,
+					VirtualSummaryResponse.class);
+			chList.add(createClaimHistoryReponseOn(cs,vs,claimsPayment));
+			
+		}
+		
 		ClaimHistoryResponse chr = new ClaimHistoryResponse();
 		chr.setClaimHistory(chList);
-		//Look for Online payments
-
-		//Look for offline payments
-		//		List<ClaimsPayment> OnlineList = claimsPaymentService.findByHcId(cm.getHcid());
-
 		return chr;
 
 	}
@@ -79,9 +96,12 @@ public class ClaimHistoryService {
 		
 		for (Claim claim : claimList) {
 			item.setClaimId(claim.getClmId());
+			item.setOffline(true);
 			item.setAmountPaid(String.valueOf(mi.getAmountPaid()));
 			item.setPaymentDate(mi.getTransactionDateTime().toString());
 			item.setClaimType(claim.getClmTypeCd().getName());
+			item.setProviderName(vs.getProvider().getLastNm()+", "+vs.getProvider().getFirstNm());
+			item.setDateOfService(claim.getClmStartDt());
 			FacilityDetails fd = new FacilityDetails();
 			fd.setName(claim.getServicingProvider().getOrganizationNm());
 			Address ad = new Address();
@@ -98,11 +118,32 @@ public class ClaimHistoryService {
 
 	}
 	
-	public ClaimHistory createClaimHistoryReponseOn(ClaimsSummary cs, VirtualSummaryResponse vs, ClaimsPayment cp ) {
+	public ClaimHistory createClaimHistoryReponseOn(ClaimsSummary cs, VirtualSummaryResponse vs, ClaimsPayment mi ) {
 
-		ClaimHistory ch = new ClaimHistory();
+		List<Claim> claimList = cs.getClaims();
+		ClaimHistory item= new ClaimHistory();
+		
+		for (Claim claim : claimList) {
+			item.setClaimId(claim.getClmId());
+			item.setOffline(false);
+			item.setAmountPaid(String.valueOf(mi.getAmountPaid()));
+			item.setPaymentDate(mi.getTransactionDateTime().toString());
+			item.setClaimType(claim.getClmTypeCd().getName());
+			item.setProviderName(vs.getProvider().getLastNm()+", "+vs.getProvider().getFirstNm());
+			item.setDateOfService(claim.getClmStartDt());
+			FacilityDetails fd = new FacilityDetails();
+			fd.setName(claim.getServicingProvider().getOrganizationNm());
+			Address ad = new Address();
+			ad.setAddressLine1(vs.getProvider().getFacilityAddress().getStreetAddress1());
+			ad.setAddressLine2(vs.getProvider().getFacilityAddress().getStreetAddress2());
+			ad.setCity(vs.getProvider().getFacilityAddress().getCity());
+			ad.setState(vs.getProvider().getFacilityAddress().getState());
+			ad.setPostalCode(vs.getProvider().getFacilityAddress().getZip());
+			fd.setAddress(ad);
+			item.setFacilityDetails(fd);
+		}
 				
-		return null;
+		return item;
 
 	}
 

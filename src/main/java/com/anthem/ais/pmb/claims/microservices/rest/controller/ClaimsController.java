@@ -17,7 +17,7 @@ import com.anthem.ais.pmb.claims.microservices.rest.model.MembrIndcModel;
 import com.anthem.ais.pmb.claims.microservices.rest.model.StatusModel;
 import com.anthem.ais.pmb.claims.microservices.rest.service.ClaimHistoryService;
 import com.anthem.ais.pmb.claims.microservices.rest.service.ClaimSummaryService;
-import com.anthem.ais.pmb.claims.microservices.rest.service.OffilinePaymentService;
+import com.anthem.ais.pmb.claims.microservices.rest.service.OfflinePaymentService;
 import com.anthem.ais.pmb.claims.microservices.util.PMBConstants;
 import com.anthem.ais.pmb.claims.microservices.util.PMBPropertiesUtil;
 
@@ -26,7 +26,7 @@ public class ClaimsController {
 	@Autowired
 	private RestTemplate restTemplate;
 	@Autowired
-	private OffilinePaymentService offilinePaymentService;
+	private OfflinePaymentService offilinePaymentService;
 	@Autowired
 	private ClaimSummaryService claimSummaryService;
 	@Autowired
@@ -42,7 +42,7 @@ public class ClaimsController {
 		
 		//Lookup Virtual Service for remaining fields
 		String virtualHost = PMBPropertiesUtil.getProperty(PMBConstants.VIRTUAL_HOST_URL);
-		String vuri = new String(virtualHost+"/pmb/claims/virtual");
+		String vuri = new String(virtualHost+"/pmb/claims/virtual?claimId=2015280AS1000");
 		VirtualSummaryResponse vs = restTemplate.getForObject(vuri, VirtualSummaryResponse.class);
 		//Create response
 		ClaimSummaryResponse csr = claimSummaryService.createClaimSummary(cs, vs);
@@ -62,7 +62,7 @@ public class ClaimsController {
 	@RequestMapping(value = "/vclaims", method = {RequestMethod.GET})
     public @ResponseBody String getClaimsVirtual() {
 		String virtualHost = PMBPropertiesUtil.getProperty(PMBConstants.VIRTUAL_HOST_URL);
-		String uri = new String(virtualHost+"/pmb/claims/virtual");
+		String uri = new String(virtualHost+"/pmb/claims/virtual?claimId=2015280AS1000");
 		String result = restTemplate.getForObject(uri, String.class);
 		return result;
     }

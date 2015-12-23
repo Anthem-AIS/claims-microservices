@@ -1,15 +1,11 @@
 package com.anthem.ais.pmb.claims.microservices.util;
 
-import org.owasp.esapi.Logger;
-import org.owasp.esapi.reference.Log4JLogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * @com.wellpoint.cii.common.log
- * 
  *                               Logger class to be used across application
  * 
- * @filename CiiLogger.java
- * @date Apr 23, 2014
  * @author Deloitte
  * 
  */
@@ -18,7 +14,7 @@ public class PMBLogger {
 	private Logger logger = null;
 
 	private PMBLogger(Class clazz) {
-		this.logger = Log4JLogFactory.getInstance().getLogger(clazz);
+		this.logger = LoggerFactory.getLogger(clazz);
 	}
 
 	public boolean isInfoEnabled() {
@@ -30,27 +26,27 @@ public class PMBLogger {
 	}
 
 	public void debug(String message) {
-		this.logger.debug(Logger.EVENT_SUCCESS,(message));
+		this.logger.debug((message));
 	}
 
 	public void debug(String message, Throwable exception) {
-		this.logger.debug(Logger.EVENT_FAILURE,message, exception);
+		this.logger.debug(message, exception);
 	}
 
 	public void info(String message) {
-		this.logger.info(Logger.EVENT_SUCCESS,(message));
+		this.logger.info((message));
 	}
 
 	public void info(String message, Throwable exception) {
-		this.logger.info(Logger.EVENT_SUCCESS,message, exception);
+		this.logger.info(message, exception);
 	}
 
 	public void error(String message) {
-		this.logger.error(Logger.EVENT_FAILURE,message);
+		this.logger.error(message);
 	}
 
 	public void error(String message, Throwable exception) {
-		this.logger.error(Logger.EVENT_FAILURE,message, exception);
+		this.logger.error(message, exception);
 	}
 
 	public static final PMBLogger getCiiLogger(Class clazz) {

@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PostBackRequest implements Serializable {
 	
 	private static final long serialVersionUID = -4446232229902806895L;
+	@JsonProperty("UserId")
+	private String userId;
 	@JsonProperty("Amount")
 	private String amount;
 	@JsonProperty("TransactionDateTime")
@@ -32,6 +34,12 @@ public class PostBackRequest implements Serializable {
 	
 	
 	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	@Override
 	public String toString() {
 		return "PostBackRequest [amount=" + amount + ", transactionDateTime="

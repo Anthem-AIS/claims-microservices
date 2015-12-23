@@ -11,4 +11,5 @@ public interface MemberIndicatedService extends
 
 	public MemberIndicated saveIndicated(MemberIndicated mi);
 	public List<MemberIndicated> findByHcId(String hcid);
+	public List<MemberIndicated> findByClaimId(String claimId);
 }

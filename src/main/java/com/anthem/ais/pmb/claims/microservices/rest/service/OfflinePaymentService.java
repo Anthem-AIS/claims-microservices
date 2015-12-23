@@ -12,7 +12,7 @@ import com.anthem.ais.pmb.claims.microservices.util.PMBDateUtil;
 import com.anthem.ais.pmb.claims.microservices.util.RandomGUID;
 
 @Component
-public class OffilinePaymentService {
+public class OfflinePaymentService {
 
 	@Autowired
 	private MemberIndicatedService memberIndicatedService;

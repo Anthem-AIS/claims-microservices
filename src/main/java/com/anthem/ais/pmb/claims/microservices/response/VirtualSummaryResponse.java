@@ -24,7 +24,7 @@ public class VirtualSummaryResponse {
     @JsonProperty("claimId")
     private String claimId;
     @JsonProperty("amountOwed")
-    private Double amountOwed;
+    private Integer amountOwed;
     @JsonProperty("memberSequenceNumber")
     private Integer memberSequenceNumber;
     @JsonProperty("provider")
@@ -58,7 +58,7 @@ public class VirtualSummaryResponse {
      *     The amountOwed
      */
     @JsonProperty("amountOwed")
-    public Double getAmountOwed() {
+    public Integer getAmountOwed() {
         return amountOwed;
     }
 
@@ -68,7 +68,7 @@ public class VirtualSummaryResponse {
      *     The amountOwed
      */
     @JsonProperty("amountOwed")
-    public void setAmountOwed(Double amountOwed) {
+    public void setAmountOwed(Integer amountOwed) {
         this.amountOwed = amountOwed;
     }
 

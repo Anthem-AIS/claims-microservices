@@ -7,8 +7,6 @@
 	<session-factory>
 		<mapping class="com.anthem.ais.pmb.claims.microservices.domain.entity.ClaimsPayment" />
 		<mapping class="com.anthem.ais.pmb.claims.microservices.domain.entity.ClaimsPaymentPK" />
-		<mapping class="com.anthem.ais.pmb.claims.microservices.domain.entity.Hcid2Token" />
-		<mapping class="com.anthem.ais.pmb.claims.microservices.domain.entity.HcidSequenceNumber2Uuid" />
 		<mapping class="com.anthem.ais.pmb.claims.microservices.domain.entity.MemberIndicated" />
 		<mapping class="com.anthem.ais.pmb.claims.microservices.domain.entity.MemberIndicatedPK" />
 	</session-factory>

@@ -10,7 +10,23 @@ public class PayNowRequest {
 	private String amountPaid;
 	@JsonProperty("userToken")
 	private String userToken;
+	@JsonProperty("hcId")
+	private String hcId;
+	@JsonProperty("userEmailId")
+	private String userEmailId;
 	
+	public String getUserEmailId() {
+		return userEmailId;
+	}
+	public void setUserEmailId(String userEmailId) {
+		this.userEmailId = userEmailId;
+	}
+	public String getHcId() {
+		return hcId;
+	}
+	public void setHcId(String hcId) {
+		this.hcId = hcId;
+	}
 	public String getClaimId() {
 		return claimId;
 	}

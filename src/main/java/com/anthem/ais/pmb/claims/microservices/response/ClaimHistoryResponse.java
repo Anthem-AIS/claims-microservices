@@ -1,5 +1,5 @@
 
-package com.anthem.ais.pmb.claims.microservices.rest.model;
+package com.anthem.ais.pmb.claims.microservices.response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,61 +13,36 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "metadata",
-    "claims"
+    "claimHistory"
 })
-public class ClaimsSummaryRequest {
+public class ClaimHistoryResponse {
 
-    @JsonProperty("metadata")
-    private Metadata metadata;
-    @JsonProperty("claims")
-    private List<Claim> claims = new ArrayList<Claim>();
+    @JsonProperty("claimHistory")
+    private List<ClaimHistory> claimHistory = new ArrayList<ClaimHistory>();
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The metadata
+     *     The claimHistory
      */
-    @JsonProperty("metadata")
-    public Metadata getMetadata() {
-        return metadata;
+    @JsonProperty("claimHistory")
+    public List<ClaimHistory> getClaimHistory() {
+        return claimHistory;
     }
 
     /**
      * 
-     * @param metadata
-     *     The metadata
+     * @param claimHistory
+     *     The claimHistory
      */
-    @JsonProperty("metadata")
-    public void setMetadata(Metadata metadata) {
-        this.metadata = metadata;
-    }
-
-    /**
-     * 
-     * @return
-     *     The claims
-     */
-    @JsonProperty("claims")
-    public List<Claim> getClaims() {
-        return claims;
-    }
-
-    /**
-     * 
-     * @param claims
-     *     The claims
-     */
-    @JsonProperty("claims")
-    public void setClaims(List<Claim> claims) {
-        this.claims = claims;
+    @JsonProperty("claimHistory")
+    public void setClaimHistory(List<ClaimHistory> claimHistory) {
+        this.claimHistory = claimHistory;
     }
 
     @JsonAnyGetter

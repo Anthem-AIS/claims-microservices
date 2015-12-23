@@ -40,13 +40,13 @@
 		</property>
 	</bean>
 
-	<bean id="tomcatDataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+	<!-- <bean id="tomcatDataSource" class="org.apache.commons.dbcp.BasicDataSource" 
 		destroy-method="close" p:driverClassName="${hibernate.connection.driver_class}" 
 		p:url="${hibernate.connection.url}" p:username="${hibernate.connection.username}" 
 		p:password="${hibernate.connection.password}" p:maxActive="100" p:maxIdle="4"> 
-		</bean>
+		</bean> -->
 	<!-- START : WAS Datasource Setting -->
-	<!-- <jee:jndi-lookup id="webSphereDataSource "
+	<jee:jndi-lookup id="webSphereDataSource "
 		jndi-name="jdbc/AIS" cache="true"
 		resource-ref="true" lookup-on-startup="false" proxy-interface="javax.sql.DataSource" />
 	<bean id="webSphereDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
@@ -54,12 +54,12 @@
 		<property name="lookupOnStartup" value="false" />
 		<property name="cache" value="true" />
 		<property name="proxyInterface" value="javax.sql.DataSource" />
-	</bean> -->
+	</bean>
 	<!-- /END : WAS Datasource Setting -->
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<property name="dataSource" ref="tomcatDataSource"></property><!-- For WAS : ref="webSphereDataSource" -->
+		<property name="dataSource" ref="webSphereDataSource"></property><!-- For WAS : ref="webSphereDataSource" -->
 		<property name="configLocation">
 			<value>classpath:hibernate.cfg.xml</value>
 		</property>
@@ -71,9 +71,9 @@
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<!-- START : IBM WAS SPECIFIC PROPERTIES -->
-				<!-- <prop key="hibernate.connection.datasource">${hibernate.connection.datasource}</prop> 
+				<prop key="hibernate.connection.datasource">${hibernate.connection.datasource}</prop> 
 				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop> 
-				<prop key="hibernate.transaction.manager_lookup_class">org.hibernate.transaction.WebSphereExtendedJTATransactionLookup</prop> -->
+				<prop key="hibernate.transaction.manager_lookup_class">org.hibernate.transaction.WebSphereExtendedJTATransactionLookup</prop>
 			<!-- /END IBM WAS SPECIFIC PROPERTIES -->
 
 			</props>
@@ -82,13 +82,13 @@
 	<tx:annotation-driven />
 
 	<!-- Tomcat Setting -->
-    <bean id="transactionManager"
+   <!--  <bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
+	</bean> -->
 
 	<!-- START : WAS TRANSACTION SETTINGS -->
-	<!-- <bean id="transactionManager" class="org.springframework.transaction.jta.WebSphereUowTransactionManager"/> -->
+	<bean id="transactionManager" class="org.springframework.transaction.jta.WebSphereUowTransactionManager"/>
 	<!-- /END : WAS TRANSACTION SETTINGS -->
 
 	<!-- REST TEMPLATE INITIALIZATION -->

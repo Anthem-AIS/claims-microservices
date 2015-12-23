@@ -17,7 +17,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "billingTIN",
     "facilityAddress",
     "remittanceAddress",
-    "phoneNumber"
+    "phoneNumber",
+    "firstNm",
+    "lastNm"
 })
 public class Provider {
 
@@ -29,6 +31,10 @@ public class Provider {
     private RemittanceAddress remittanceAddress;
     @JsonProperty("phoneNumber")
     private String phoneNumber;
+    @JsonProperty("firstNm")
+    private String firstNm;
+    @JsonProperty("lastNm")
+    private String lastNm;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -110,6 +116,46 @@ public class Provider {
     @JsonProperty("phoneNumber")
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * 
+     * @return
+     *     The firstNm
+     */
+    @JsonProperty("firstNm")
+    public String getFirstNm() {
+        return firstNm;
+    }
+
+    /**
+     * 
+     * @param firstNm
+     *     The firstNm
+     */
+    @JsonProperty("firstNm")
+    public void setFirstNm(String firstNm) {
+        this.firstNm = firstNm;
+    }
+
+    /**
+     * 
+     * @return
+     *     The lastNm
+     */
+    @JsonProperty("lastNm")
+    public String getLastNm() {
+        return lastNm;
+    }
+
+    /**
+     * 
+     * @param lastNm
+     *     The lastNm
+     */
+    @JsonProperty("lastNm")
+    public void setLastNm(String lastNm) {
+        this.lastNm = lastNm;
     }
 
     @JsonAnyGetter

@@ -43,4 +43,10 @@ public class MemberIndicatedServiceImpl extends
 		return getMemberIndicatedDAO().findByHcId(hcid);
 	}
 	
+	@Override
+	@Transactional
+	public List<MemberIndicated> findByClaimId(String claimId){
+		return getMemberIndicatedDAO().findByHcId(claimId);
+	}
+	
 }

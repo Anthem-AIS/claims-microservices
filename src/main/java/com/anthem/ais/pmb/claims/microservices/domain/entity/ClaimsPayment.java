@@ -21,12 +21,12 @@ public class ClaimsPayment implements Serializable {
 	private String eeId;
 	private String empGroupNumber;
 	private String empSequenceNumber;
+	private String hcid;
 	private long sequenceNumber;
 	private String statusCode;
 	private String templateId;
 	private String transactionAction;
 	private Timestamp transactionDateTime;
-	private HcidSequenceNumber2Uuid hcidSequenceNumber2Uuid;
 
 	public ClaimsPayment() {
 	}
@@ -112,6 +112,15 @@ public class ClaimsPayment implements Serializable {
 	}
 
 
+	public String getHcid() {
+		return this.hcid;
+	}
+
+	public void setHcid(String hcid) {
+		this.hcid = hcid;
+	}
+
+
 	@Column(name="SEQUENCE_NUMBER")
 	public long getSequenceNumber() {
 		return this.sequenceNumber;
@@ -159,18 +168,6 @@ public class ClaimsPayment implements Serializable {
 
 	public void setTransactionDateTime(Timestamp transactionDateTime) {
 		this.transactionDateTime = transactionDateTime;
-	}
-
-
-	//bi-directional many-to-one association to HcidSequenceNumber2Uuid
-	@ManyToOne
-	@JoinColumn(name="HCID")
-	public HcidSequenceNumber2Uuid getHcidSequenceNumber2Uuid() {
-		return this.hcidSequenceNumber2Uuid;
-	}
-
-	public void setHcidSequenceNumber2Uuid(HcidSequenceNumber2Uuid hcidSequenceNumber2Uuid) {
-		this.hcidSequenceNumber2Uuid = hcidSequenceNumber2Uuid;
 	}
 
 }

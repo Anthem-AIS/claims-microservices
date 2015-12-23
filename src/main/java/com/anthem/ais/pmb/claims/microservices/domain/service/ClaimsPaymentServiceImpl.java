@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.anthem.ais.pmb.claims.microservices.domain.dao.ClaimsPaymentsDAO;
 import com.anthem.ais.pmb.claims.microservices.domain.entity.ClaimsPayment;
 import com.anthem.ais.pmb.claims.microservices.domain.entity.ClaimsPaymentPK;
-import com.anthem.ais.pmb.claims.microservices.domain.entity.HcidSequenceNumber2Uuid;
+import com.anthem.ais.pmb.claims.microservices.domain.entity.MemberIndicated;
 import com.anthem.ais.pmb.claims.microservices.generic.service.GenericEntityServiceImpl;
 
 public class ClaimsPaymentServiceImpl extends
@@ -37,12 +37,14 @@ public class ClaimsPaymentServiceImpl extends
 	}
 
 	@Transactional
-	public List<HcidSequenceNumber2Uuid> getHcidByUuid(String uuid){
-		return claimsPaymentsDAO.getHcidByUuid(uuid);
-	}
-	@Transactional
 	public List<ClaimsPayment> findByHcId(String hcid){
 		return claimsPaymentsDAO.findByHcId(hcid);
 		
+	}
+	
+	@Override
+	@Transactional
+	public List<ClaimsPayment> findByClaimId(String claimId){
+		return claimsPaymentsDAO.findByHcId(claimId);
 	}
 }

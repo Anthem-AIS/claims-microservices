@@ -14,22 +14,16 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 	<context:annotation-config />
 	<context:component-scan base-package="com.anthem.ais.pmb.claims.microservices" />
+	
 	<!-- Entity Service Beans -->
 	<bean id="claimsPaymentService"
 		class="com.anthem.ais.pmb.claims.microservices.domain.service.ClaimsPaymentServiceImpl" />
-	<bean id="hcid2TokenService"
-		class="com.anthem.ais.pmb.claims.microservices.domain.service.Hcid2TokenServiceImpl" />
-	<bean id="hcidSequenceNumber2UuidService"
-		class="com.anthem.ais.pmb.claims.microservices.domain.service.HcidSequenceNumber2UuidServiceImpl" />
 	<bean id="memberIndicatedService"
 		class="com.anthem.ais.pmb.claims.microservices.domain.service.MemberIndicatedServiceImpl" />
+	
 	<!-- Entity DAO Beans -->
 	<bean id="claimsPaymentDAO"
 		class="com.anthem.ais.pmb.claims.microservices.domain.dao.ClaimsPaymentsDAOImpl" />
-	<bean id="hcid2TokenDAO"
-		class="com.anthem.ais.pmb.claims.microservices.domain.dao.Hcid2TokenDAOImpl" />
-	<bean id="hcidSequenceNumber2UuidDAO"
-		class="com.anthem.ais.pmb.claims.microservices.domain.dao.HcidSequenceNumber2UuidDAOImpl" />
 	<bean id="memberIndicatedDAO"
 		class="com.anthem.ais.pmb.claims.microservices.domain.dao.MemberIndicatedDAOImpl" />
 
